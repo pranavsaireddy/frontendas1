@@ -2,17 +2,20 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+// Use your backend server URL
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'
+
 export default function StudentList() {
   const [students, setStudents] = useState([])
   const navigate = useNavigate()
 
   const loadStudents = async () => {
-    const res = await axios.get('/students')
+    const res = await axios.get(`${BASE_URL}/students`)
     setStudents(res.data)
   }
 
   const deleteStudent = async (id) => {
-    await axios.delete(`/students/${id}`)
+    await axios.delete(`${BASE_URL}/students/${id}`)
     loadStudents()
   }
 
